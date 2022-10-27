@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/charactersListFragment">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="mx.mauriciogs.consuminggraphql.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+
+    <fragment
+        android:id="@+id/charactersListFragment"
+        android:name="mx.mauriciogs.consuminggraphql.CharactersListFragment"
+        android:label="CharactersListFragment"
+        tools:layout="@layout/fragment_characters_list">
+        <action
+            android:id="@+id/action_charactersListFragment_to_characterDetailsFragment"
+            app:destination="@id/characterDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="mx.mauriciogs.consuminggraphql.CharacterDetailsFragment"
+        android:label="fragment_character_details"
+        tools:layout="@layout/fragment_character_details" />
+
+
+</navigation>

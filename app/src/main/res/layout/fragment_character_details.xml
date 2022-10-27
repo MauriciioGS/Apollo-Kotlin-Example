@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".CharacterDetailsFragment">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/ivCharacter"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:weightSum="6"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCharacter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivCharacter"
+        app:layout_constraintTop_toTopOf="@+id/ivCharacter">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Rick Sanchez"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="🚀 Alive"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvSpecies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Human"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/tvLastLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/missionPatch"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+            app:layout_constraintBottom_toBottomOf="@+id/missionPatch"
+            tools:text="Last loc"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/missionPatch"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+            app:layout_constraintBottom_toBottomOf="@+id/missionPatch"
+            tools:text="Location"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvFirstSeen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/missionPatch"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+            app:layout_constraintBottom_toBottomOf="@+id/missionPatch"
+            tools:text="First Seen"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvLocationSeen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/missionPatch"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+            app:layout_constraintBottom_toBottomOf="@+id/missionPatch"
+            tools:text="Location"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--<TextView
+        android:id="@+id/site"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/missionPatch"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rocket_name"
+        app:layout_constraintBottom_toBottomOf="@+id/missionPatch"
+        tools:text="Site"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="20sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/rocket_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/missionPatch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mission_name"
+        app:layout_constraintBottom_toTopOf="@+id/site"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="🚀 Alive or Dead"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="20sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/especie"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="🚀 Alive or Dead"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="20sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/mission_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/missionPatch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/missionPatch"
+        app:layout_constraintBottom_toTopOf="@+id/rocket_name"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Mission Name"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="24sp"
+        android:textStyle="bold">
+    </TextView>
+-->
+</androidx.constraintlayout.widget.ConstraintLayout>
