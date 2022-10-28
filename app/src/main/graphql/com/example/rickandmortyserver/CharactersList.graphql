@@ -1,0 +1,14 @@
+query CharactersList{
+    characters {
+        info{
+            count
+            pages
+        }
+        results {
+            id
+            name
+            species
+            image
+        }
+    }
+}

@@ -25,7 +25,11 @@
         android:id="@+id/characterDetailsFragment"
         android:name="mx.mauriciogs.consuminggraphql.CharacterDetailsFragment"
         android:label="fragment_character_details"
-        tools:layout="@layout/fragment_character_details" />
+        tools:layout="@layout/fragment_character_details">
+        <argument
+            android:name="characterId"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>
