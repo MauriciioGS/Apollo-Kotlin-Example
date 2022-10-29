@@ -1,8 +1,8 @@
-query CharactersList{
-    characters {
+query CharactersList($page: Int){
+    characters (page: $page) {
         info{
-            count
             pages
+            next
         }
         results {
             id

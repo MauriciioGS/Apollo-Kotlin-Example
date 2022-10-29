@@ -4,12 +4,12 @@ query CharacterDetails($id:ID!){
         name
         status
         species
+        image
         origin {
             name
         }
         location {
             name
         }
-        image
     }
 }

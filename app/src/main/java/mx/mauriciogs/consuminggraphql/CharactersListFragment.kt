@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import apolloClient
+import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.exception.ApolloException
 import com.example.CharactersListQuery
+import kotlinx.coroutines.channels.Channel
 import mx.mauriciogs.consuminggraphql.databinding.FragmentCharactersListBinding
 
 class CharactersListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharactersListBinding
-    private var characters = emptyList<CharactersListQuery.Result>()
+    private var characters = mutableListOf<CharactersListQuery.Result>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,26 +35,42 @@ class CharactersListFragment : Fragment() {
     }
 
     private fun getData() {
-        lifecycleScope.launchWhenResumed {
-            val response = try {
-                apolloClient.query(CharactersListQuery()).execute()
-            } catch (exception: ApolloException){
-                Toast.makeText(requireActivity(), "Failure: ${exception.message}", Toast.LENGTH_LONG).show()
-                return@launchWhenResumed
-            }
-            characters = response.data?.characters?.results?.filterNotNull() ?: emptyList()
-            if (characters.isNotEmpty() && !response.hasErrors()){
-                setRecyclerView()
-            }
-        }
-    }
-
-    private fun setRecyclerView() {
         val adapter = CharacterListAdapter(characters)
         binding.rvCharacters.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvCharacters.adapter = adapter
 
+        val channel = Channel<Unit>(Channel.CONFLATED)
+        channel.trySend(Unit)
 
+        adapter.onEndOfListReached = {
+            channel.trySend(Unit)
+        }
+
+        lifecycleScope.launchWhenResumed {
+            var nextPage: Int? = 1
+            for(item in channel){
+                val response = try {
+                    apolloClient.query(CharactersListQuery(Optional.present(nextPage))).execute()
+                } catch (exception: ApolloException){
+                    Toast.makeText(requireActivity(), "Failure: ${exception.message}", Toast.LENGTH_LONG).show()
+                    return@launchWhenResumed
+                }
+                val newCharacters = response.data?.characters?.results?.filterNotNull() as MutableList<CharactersListQuery.Result>
+                if (newCharacters.isNotEmpty() && !response.hasErrors()){
+                    characters.addAll(newCharacters)
+                    adapter.notifyItemRangeChanged(characters.indexOf(characters.first()), characters.size)
+                }
+
+                nextPage = response.data?.characters?.info?.next
+                if (nextPage == null){
+                    Toast.makeText(requireActivity(),"next nulo",Toast.LENGTH_LONG).show()
+                    break
+                }
+            }
+
+            adapter.onEndOfListReached = null
+            channel.close()
+        }
     }
 
 }

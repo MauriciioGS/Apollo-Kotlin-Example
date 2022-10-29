@@ -14,6 +14,7 @@ class CharacterListAdapter(
     inner class ViewHolder(val binding: CharacterItemBinding): RecyclerView.ViewHolder(binding.root)
 
     var onItemClicked: ((CharactersListQuery.Result) -> Unit)? = null
+    var onEndOfListReached: (() -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CharacterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +29,10 @@ class CharacterListAdapter(
             .into(holder.binding.ivMinCharacter)
         holder.binding.tvName.text = character.name
         holder.binding.tvSpecies.text = character.species
+
+        if (position == itemCount - 1) {
+            onEndOfListReached?.invoke()
+        }
 
         holder.binding.root.setOnClickListener {
             onItemClicked?.invoke(character)
